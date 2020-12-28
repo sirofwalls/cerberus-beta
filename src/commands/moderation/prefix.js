@@ -12,9 +12,9 @@ module.exports = class PrefixCommand extends BaseCommand {
     const parseArgs = args.slice(1).toLowerCase().trim().split('-');
     const prefixUpdate = parseArgs[0];
     if ((prefixUpdate.length <= 3) && (prefixUpdate.length > 0)) {
-        const prefixData = await GuildConfig.findOneAndUpdate(message.guild.id, {prefix: prefixUpdate}, {new: true});
+        const prefixData = await GuildConfig.findOneAndUpdate(guildId, {prefix: prefixUpdate}, {new: true});
         if (prefixData) {
-            message.reply(`The new Prefix is \`${prefixUpdate}\``);
+            message.channel.send(`The new Prefix is \`${prefixUpdate}\``);
         } else (err) => {
             message.reply('There was an issue updating the prefix');
             console.log(err);
