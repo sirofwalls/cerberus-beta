@@ -6,7 +6,7 @@ module.exports = class PingCommand extends BaseCommand {
   }
 
   async run(client, message, args) {
-    if (message.type === 'DM') return;
+    if (message.type === 'DM' || (!message.member.hasPermission('ADMINISTRATOR'))) return;
     message.reply('Pong! :ping_pong:');
     message.delete({timeout: 2000});
   }
