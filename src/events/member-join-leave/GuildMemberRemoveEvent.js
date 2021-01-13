@@ -1,5 +1,6 @@
 const BaseEvent = require('../../utils/structures/BaseEvent');
 const Discord = require('discord.js');
+const GuildConfig = require('../../database/schemas/guildconfig');
 
 module.exports = class GuildMemberRemoveEvent extends BaseEvent {
   constructor() {
@@ -7,10 +8,13 @@ module.exports = class GuildMemberRemoveEvent extends BaseEvent {
   }
   
   async run(client, member) {
-    const welcomeChannel = client.channels.cache.get('522202185648308240');
-    const avatarPic = member.user.avatarURL();
+    const memberLogFetch = await GuildConfig.findOne({guildId: member.guild.id});
+    const memberLog = memberLogFetch.get('memeberLogChannel');
+    const welcomeChannel = client.channels.cache.get(memberLog); 
 
-    if (welcomeChannel) {
+    if (!memberLog) return;
+
+    if (memberLog) {
 
       const embed = new Discord.MessageEmbed()
         .setColor('RED')

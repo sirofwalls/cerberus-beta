@@ -1,5 +1,6 @@
 const BaseEvent = require('../../utils/structures/BaseEvent');
 const Discord = require('discord.js');
+const GuildConfig = require('../../database/schemas/guildconfig');
 
 module.exports = class GuildMemberAddEvent extends BaseEvent {
   constructor() {
@@ -7,10 +8,14 @@ module.exports = class GuildMemberAddEvent extends BaseEvent {
   }
   
   async run(client, member) {
-    const welcomeChannel = client.channels.cache.get('522202185648308240');
+    const memberLogFetch = await GuildConfig.findOne({guildId: member.guild.id});
+    const memberLog = memberLogFetch.get('memeberLogChannel');
+    const welcomeChannel = client.channels.cache.get(memberLog); 
     const avatarPic = member.user.avatarURL();
 
-    if (welcomeChannel) {
+    if (!memberLog) return;
+
+    if (memberLog) {
 
       const embed = new Discord.MessageEmbed()
         .setColor('GREEN')
@@ -20,7 +25,7 @@ module.exports = class GuildMemberAddEvent extends BaseEvent {
         .setTimestamp()
         .setFooter(`Brought to you by ${client.user.username}`, client.user.avatarURL())
 
-      welcomeChannel.send(embed);
+        welcomeChannel.send(embed);
     }
   }
 }
