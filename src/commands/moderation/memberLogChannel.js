@@ -22,7 +22,7 @@ module.exports = class memberLogCommand extends BaseCommand {
             console.log(err);
         }
     } else {
-        message.reply('The Member Log Channel ID needs to be 1-3 characters long')
+        message.reply('The Member Log Channel ID needs to be 1-21 characters long')
     }
   }
 }
