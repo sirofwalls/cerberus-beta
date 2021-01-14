@@ -25,7 +25,7 @@ const GuildConfigSchema = new mongoose.Schema({
     },
     memeberLogChannel: {
         type: mongoose.SchemaTypes.String,
-        required: false,
+        required: true,
         default: '!',
     },
 });

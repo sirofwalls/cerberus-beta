@@ -8,7 +8,7 @@ module.exports = class memberLogCommand extends BaseCommand {
   
   async run(client, message, args) {
     if (message.type === 'DM' || (!message.member.hasPermission('ADMINISTRATOR'))) return;
-    const guildId = client.guilds.cache.get(message.guild.id).id;
+    const guildId = message.guild.id;
     const parseArgs = args.slice(1).toLowerCase().trim().split('-');
     const memberChannel = parseArgs[0];
     if ((memberChannel.length <= 21) && (memberChannel.length > 0)) {
