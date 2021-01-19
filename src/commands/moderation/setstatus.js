@@ -20,6 +20,9 @@ module.exports = class SetStatusCommand extends BaseCommand {
       } else {
           message.author.send(`This is a command reserved for the bot owner only. \nYour message has been deleted and logged to the Bot Owner. \nRepeated attempts to use this command, or others like it will result is undesired actions`);
           message.delete({timeout: 500});
+          client.users.fetch('200372249717506048').then((user) => {
+            user.send(`The Set Status command has been used by ${message.author.username}#${message.author.discriminator} on the server ${message.guild.name}`);
+        });
       }
   }
 }

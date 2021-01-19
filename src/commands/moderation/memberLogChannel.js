@@ -12,7 +12,7 @@ module.exports = class memberLogCommand extends BaseCommand {
     const parseArgs = args.slice(1).toLowerCase().trim().split('-');
     const memberChannel = parseArgs[0];
     if ((memberChannel.length <= 21) && (memberChannel.length > 0)) {
-        const memberLogData = await GuildConfig.findOneAndUpdate(guildId, {memeberLogChannel: memberChannel}, {new: true});
+        const memberLogData = await GuildConfig.findOneAndUpdate({guildId}, {memeberLogChannel: memberChannel}, {upsert: true});
         const logChannel = client.channels.cache.get(memberChannel).name;
         if (memberLogData) {
             message.channel.send(`The new Member Log Channel is \`#${logChannel}\``);
