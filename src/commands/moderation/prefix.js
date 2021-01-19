@@ -13,7 +13,6 @@ module.exports = class PrefixCommand extends BaseCommand {
     const prefixUpdate = parseArgs[0];
     if ((prefixUpdate.length <= 3) && (prefixUpdate.length > 0)) {
         const prefixData = await GuildConfig.findOneAndUpdate({guildId}, {prefix: prefixUpdate}, {upsert: true});
-        console.log(prefixData);
         if (prefixData) {
             message.channel.send(`The new Prefix is \`${prefixUpdate}\``);
         } else (err) => {
