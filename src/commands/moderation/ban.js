@@ -1,16 +1,16 @@
 const BaseCommand = require('../../utils/structures/BaseCommand');
 const GuildConfig = require('../../database/schemas/guildconfig');
 
-module.exports = class KickCommand extends BaseCommand {
+module.exports = class BanCommand extends BaseCommand {
   constructor() {
-    super('kick', 'moderation', []);
+    super('ban', 'moderation', []);
   }
 
   async run(client, message, args) {
 
     if (message.type === 'DM') return;
 
-    if (message.guild.me.hasPermission("KICK_MEMBERS")){
+    if (message.guild.me.hasPermission("BAN_MEMBERS")){
       const modRoleFetch = await GuildConfig.findOne({guildId: message.guild.id});
       const guildRoleCheck = modRoleFetch.get('moderatorRole');
 
@@ -27,17 +27,18 @@ module.exports = class KickCommand extends BaseCommand {
             if (target) {
               const targetMember = message.guild.members.cache.get(target.id);
               const sniperMember = `${message.author.username}#${message.author.discriminator}`
-              targetMember.kick([`Kicked by ${sniperMember}`]);
-              message.channel.send(`${targetMember} was kicked`);
+              targetMember.ban({days: 0, reason: `Banned by ${sniperMember}`})
+              .then(message.channel.send(`${targetMember} was banned`))
+              .catch(message.channel.send('There was a problem executing this command.'))
         
             } else {
-              message.reply('You need to mention a user to kick');
+              message.reply('You need to mention a user to ban');
             }
           } else {
             message.reply('You do not have the correct role to execute this command.');
           }
         } else {
-          message.reply('It looks like that role no longer exists');
+          message.reply('It looks like the moderator role needed no longer exists');
         }
       } else {
         message.reply('A Moderator role has not been defined yet. Talk to the server Admin.');
