@@ -19,6 +19,10 @@ const GuildConfigSchema = new mongoose.Schema({
         type: mongoose.SchemaTypes.String,
         required: false,
     },
+    moderatorRole: {
+        type: mongoose.SchemaTypes.String,
+        required: false,
+    },
     announceRole: {
         type: mongoose.SchemaTypes.String,
         required: false,

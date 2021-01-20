@@ -3,7 +3,7 @@ const GuildConfig = require('../../database/schemas/guildconfig');
 
 module.exports = class PrefixCommand extends BaseCommand {
   constructor() {
-    super('prefix', 'moderation', []);
+    super('prefix', 'admin', []);
   }
   
   async run(client, message, args) {

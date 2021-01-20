@@ -2,7 +2,7 @@ const BaseCommand = require('../../utils/structures/BaseCommand');
 
 module.exports = class SetStatusCommand extends BaseCommand {
   constructor() {
-    super('setstatus', 'moderation', ['ss']);
+    super('setstatus', 'admin', ['ss']);
   }
 
   async run(client, message, args) {

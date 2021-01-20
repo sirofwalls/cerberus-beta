@@ -2,7 +2,7 @@ const BaseCommand = require('../../utils/structures/BaseCommand');
 
 module.exports = class ClearChannelCommand extends BaseCommand {
   constructor() {
-    super('clearchannel', 'testing', ['cc']);
+    super('clearchannel', 'moderation', ['cc']);
   }
 
   async run(client, message, args) {
