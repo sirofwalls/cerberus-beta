@@ -8,8 +8,6 @@ module.exports = class KickCommand extends BaseCommand {
 
   async run(client, message, args) {
 
-    if (message.type === 'DM') return;
-
     if (message.guild.me.hasPermission("KICK_MEMBERS")){
       const modRoleFetch = await GuildConfig.findOne({guildId: message.guild.id});
       const guildRoleCheck = modRoleFetch.get('moderatorRole');

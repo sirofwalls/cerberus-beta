@@ -6,7 +6,6 @@ module.exports = class ClearChannelCommand extends BaseCommand {
   }
 
   async run(client, message, args) {
-    if (message.type === 'DM') return;
       if (message.member.hasPermission('ADMINISTRATOR')) {
           message.channel.messages.fetch().then((results) => {
               message.channel.bulkDelete(results);

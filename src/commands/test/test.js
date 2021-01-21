@@ -6,7 +6,7 @@ module.exports = class TestCommand extends BaseCommand {
   }
 
   async run(client, message, args) {
-    if (message.type === 'DM' || (!message.member.hasPermission('ADMINISTRATOR'))) return;
+    if (!message.member.hasPermission('ADMINISTRATOR')) return;
     message.channel.send('Test command works, my master');
   }
 }

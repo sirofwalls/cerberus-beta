@@ -7,7 +7,7 @@ module.exports = class PrefixCommand extends BaseCommand {
   }
   
   async run(client, message, args) {
-    if (message.type === 'DM' || (!message.member.hasPermission('ADMINISTRATOR'))) return;
+    if (!message.member.hasPermission('ADMINISTRATOR')) return;
     const guildId = message.guild.id;
     const parseArgs = args.slice(1).toLowerCase().trim().split('-');
     const prefixUpdate = parseArgs[0];

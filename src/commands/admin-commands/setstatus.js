@@ -6,7 +6,6 @@ module.exports = class SetStatusCommand extends BaseCommand {
   }
 
   async run(client, message, args) {
-    if (message.type === 'DM') return;
     const parseArgs = args.slice(1).toLowerCase().trim().split('-');
     const capitalize = (s) => {
       if (typeof s !== 'string') return ''
