@@ -14,13 +14,17 @@ module.exports = class PrefixCommand extends BaseCommand {
     if ((prefixUpdate.length <= 3) && (prefixUpdate.length > 0)) {
         const prefixData = await GuildConfig.findOneAndUpdate({guildId}, {prefix: prefixUpdate}, {upsert: true});
         if (prefixData) {
-            message.channel.send(`The new Prefix is \`${prefixUpdate}\``);
+            message.channel.send(`The new Prefix is \`${prefixUpdate}\``).then((replyMessage) => {
+              replyMessage.delete({timeout: 2000})
+            });
         } else (err) => {
             message.reply('There was an issue updating the prefix');
             console.log(err);
         }
     } else {
-        message.reply('The prefix needs to be 1-3 characters long')
+        message.reply('The prefix needs to be 1-3 characters long').then((replyMessage) => {
+          replyMessage.delete({timeout: 2000})
+        });
     }
   }
 }

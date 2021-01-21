@@ -15,14 +15,18 @@ module.exports = class memberLogCommand extends BaseCommand {
         const memberLogData = await GuildConfig.findOneAndUpdate({guildId}, {memeberLogChannel: memberChannel}, {upsert: true});
         const logChannel = client.channels.cache.get(memberChannel).name;
         if (memberLogData) {
-            message.channel.send(`The new Member Log Channel is \`#${logChannel}\``);
+            message.channel.send(`The new Member Log Channel is \`#${logChannel}\``).then((replyMessage) => {
+              replyMessage.delete({timeout: 2000})
+            });
             message.delete({timeout: 200});
         } else (err) => {
             message.reply('There was an issue updating the Member Log Channel');
             console.log(err);
         }
     } else {
-        message.reply('The Member Log Channel ID needs to be 1-21 characters long')
+        message.reply('The Member Log Channel ID needs to be 1-21 characters long').then((replyMessage) => {
+          replyMessage.delete({timeout: 2000})
+        });
     }
   }
 }

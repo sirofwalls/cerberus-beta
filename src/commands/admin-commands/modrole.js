@@ -15,14 +15,18 @@ module.exports = class memberLogCommand extends BaseCommand {
     if (moderRole) {
         const memberLogData = await GuildConfig.findOneAndUpdate({guildId}, {moderatorRole: moderRole.name}, {upsert: true});
         if (memberLogData) {
-            message.channel.send(`The new Moderator Role is \`${moderRole.name}\``);
+            message.channel.send(`The new Moderator Role is \`${moderRole.name}\``).then((replyMessage) => {
+              replyMessage.delete({timeout: 2000})
+            });
             message.delete({timeout: 200});
         } else (err) => {
             message.reply('There was an issue updating the Moderator Role');
             console.log(err);
         }
     } else {
-        message.reply('That role does not exist')
+        message.reply('That role does not exist').then((replyMessage) => {
+          replyMessage.delete({timeout: 2000})
+        });
     }
   }
 }
