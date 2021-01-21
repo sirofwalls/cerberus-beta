@@ -8,6 +8,10 @@ module.exports = class MessageEvent extends BaseEvent {
   
   async run(client, message) {
     if (message.author.bot) return;
+    if (message.channel.type === 'dm') {
+      message.reply('Stranger Danger! I cannot talk to you unless we are in a server!')
+      return;
+    }
     const prefixFetch = await GuildConfig.findOne({guildId: message.guild.id});
     const prefix = prefixFetch.get('prefix');
     if (message.content.startsWith(prefix)) {

@@ -31,6 +31,10 @@ const GuildConfigSchema = new mongoose.Schema({
         type: mongoose.SchemaTypes.String,
         required: false,
     },
+    mutedRole: {
+        type: mongoose.SchemaTypes.String,
+        required: false,
+    },
 });
 
 module.exports = mongoose.model('GuildConfig', GuildConfigSchema);

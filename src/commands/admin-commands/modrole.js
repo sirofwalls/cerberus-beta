@@ -1,13 +1,13 @@
 const BaseCommand = require('../../utils/structures/BaseCommand');
 const GuildConfig = require('../../database/schemas/guildconfig');
 
-module.exports = class memberLogCommand extends BaseCommand {
+module.exports = class ModRoleCommand extends BaseCommand {
   constructor() {
     super('modrole', 'admin', ['mr']);
   }
   
   async run(client, message, args) {
-    if (message.type === 'DM' || (!message.member.hasPermission('ADMINISTRATOR'))) return;
+    if (!message.member.hasPermission('ADMINISTRATOR')) return;
     const guildId = message.guild.id;
     const parseArgs = args.slice(1).toLowerCase().trim().split('-');
     const modRole = parseArgs[0];
