@@ -23,11 +23,19 @@ module.exports = class BanCommand extends BaseCommand {
             const target = mentions.users.first();
 
             if (target) {
-              const targetMember = message.guild.members.cache.get(target.id);
-              const sniperMember = `${message.author.username}#${message.author.discriminator}`
-              targetMember.ban({days: 0, reason: `Banned by ${sniperMember}`})
-              .then(message.channel.send(`${targetMember} was banned`))
-              .catch(message.channel.send('There was a problem executing this command.'))
+              try {
+                const targetMember = message.guild.members.cache.get(target.id);
+                const sniperMember = `${message.author.username}#${message.author.discriminator}`;
+
+                await targetMember.ban({days: 0, reason: `Banned by ${sniperMember}`})
+                .then(() => {
+                  message.channel.send(`${targetMember} was banned`)
+                })
+              } catch (err) {
+                if (err.code === 50013) {
+                  message.reply('There was an error softbanning that member because they have a higher role than me.');
+                }
+              }
         
             } else {
               message.reply('You need to mention a user to ban');

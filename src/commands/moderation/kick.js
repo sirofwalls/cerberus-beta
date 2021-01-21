@@ -23,10 +23,16 @@ module.exports = class KickCommand extends BaseCommand {
             const target = mentions.users.first();
 
             if (target) {
-              const targetMember = message.guild.members.cache.get(target.id);
-              const sniperMember = `${message.author.username}#${message.author.discriminator}`
-              targetMember.kick([`Kicked by ${sniperMember}`]);
-              message.channel.send(`${targetMember} was kicked`);
+              try {
+                const targetMember = message.guild.members.cache.get(target.id);
+                const sniperMember = `${message.author.username}#${message.author.discriminator}`
+
+                await targetMember.kick([`Kicked by ${sniperMember}`]).then(() => message.channel.send(`${targetMember} was kicked`));
+              } catch (err) {
+                if (err.code === 50013) {
+                  message.reply('There was an error kicking that member because they have a higher role than me.');
+                }
+              }
         
             } else {
               message.reply('You need to mention a user to kick');

@@ -23,13 +23,20 @@ module.exports = class SoftBanCommand extends BaseCommand {
             const target = mentions.users.first();
 
             if (target) {
-              const targetMember = message.guild.members.cache.get(target.id);
-              const sniperMember = `${message.author.username}#${message.author.discriminator}`;
+              try {
+                const targetMember = message.guild.members.cache.get(target.id);
+                const sniperMember = `${message.author.username}#${message.author.discriminator}`;
 
-              targetMember.ban({days: 0, reason: `Soft Banned by ${sniperMember}`})
-
-              message.guild.members.unban(targetMember)
-              .then(message.channel.send(`${targetMember} was soft banned`))
+                await targetMember.ban({days: 0, reason: `Soft Banned by ${sniperMember}`})
+                .then(() => {
+                  message.guild.members.unban(targetMember);
+                  message.channel.send(`${targetMember} was soft banned`);
+                })
+              } catch (err) {
+                if (err.code === 50013) {
+                  message.reply('There was an error softbanning that member because they have a higher role than me.');
+                }
+              }
         
             } else {
               message.reply('You need to mention a user to soft ban');
