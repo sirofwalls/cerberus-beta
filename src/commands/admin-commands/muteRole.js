@@ -3,7 +3,7 @@ const GuildConfig = require('../../database/schemas/guildconfig');
 
 module.exports = class MuteRoleCommand extends BaseCommand {
   constructor() {
-    super('muterole', 'admin', ['']);
+    super('muterole', 'admin', []);
   }
   
   async run(client, message, args) {
