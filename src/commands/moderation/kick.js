@@ -33,7 +33,6 @@ module.exports = class KickCommand extends BaseCommand {
                   message.reply('There was an error kicking that member because they have a higher role than me.');
                 }
               }
-        
             } else {
               message.reply('You need to mention a user to kick');
             }

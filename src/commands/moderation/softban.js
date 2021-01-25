@@ -37,7 +37,6 @@ module.exports = class SoftBanCommand extends BaseCommand {
                   message.reply('There was an error softbanning that member because they have a higher role than me.');
                 }
               }
-        
             } else {
               message.reply('You need to mention a user to soft ban');
             }
