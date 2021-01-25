@@ -3,7 +3,7 @@ const GuildConfig = require('../../database/schemas/guildconfig');
 
 module.exports = class MuteRoleCommand extends BaseCommand {
   constructor() {
-    super('muterole', 'admin', []);
+    super('muterole', 'admin', [], 'Defines a role in the database that a Mod can use to text mute a person.');
   }
   
   async run(client, message, args) {
@@ -15,10 +15,10 @@ module.exports = class MuteRoleCommand extends BaseCommand {
     if (mutedRole) {
         const memberLogData = await GuildConfig.findOneAndUpdate({guildId}, {mutedRole: mutedRole.name}, {upsert: true});
         if (memberLogData) {
-            message.channel.send(`The new Moderator Role is \`${mutedRole.name}\``);
+            message.channel.send(`The new Muted Role is \`${mutedRole.name}\``);
             message.delete({timeout: 200});
         } else (err) => {
-            message.reply('There was an issue updating the Moderator Role');
+            message.reply('There was an issue updating the Muted Role');
             console.log(err);
         }
     } else {

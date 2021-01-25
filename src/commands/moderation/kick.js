@@ -3,7 +3,7 @@ const GuildConfig = require('../../database/schemas/guildconfig');
 
 module.exports = class KickCommand extends BaseCommand {
   constructor() {
-    super('kick', 'moderation', []);
+    super('kick', 'moderation', [], 'Kicks a user from the server. Only memebrs with the designated role in the database can use this command');
   }
 
   async run(client, message, args) {

@@ -3,7 +3,7 @@ const GuildConfig = require('../../database/schemas/guildconfig');
 
 module.exports = class PrefixCommand extends BaseCommand {
   constructor() {
-    super('prefix', 'admin', []);
+    super('prefix', 'admin', [], 'Sets the prefix for the server. Only Admins can use it.');
   }
   
   async run(client, message, args) {

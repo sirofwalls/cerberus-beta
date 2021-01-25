@@ -3,7 +3,7 @@ const GuildConfig = require('../../database/schemas/guildconfig');
 
 module.exports = class MemberLogCommand extends BaseCommand {
   constructor() {
-    super('memberlog', 'admin', ['mc']);
+    super('memberlog', 'admin', ['ml'], 'Sets the channel in the database for the announcement of a memebr joining or leaving.');
   }
   
   async run(client, message, args) {

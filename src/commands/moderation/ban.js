@@ -3,7 +3,7 @@ const GuildConfig = require('../../database/schemas/guildconfig');
 
 module.exports = class BanCommand extends BaseCommand {
   constructor() {
-    super('ban', 'moderation', []);
+    super('ban', 'moderation', [], 'Bans a user from the server. Only memebrs with the designated role in the database can use this command.');
   }
 
   async run(client, message, args) {

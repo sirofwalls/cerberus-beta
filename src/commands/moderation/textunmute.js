@@ -3,7 +3,7 @@ const GuildConfig = require('../../database/schemas/guildconfig');
 
 module.exports = class TextUnmuteCommand extends BaseCommand {
   constructor() {
-    super('unmute', 'moderation', []);
+    super('unmute', 'moderation', [], 'Text Unmutes a user in the server so they can resume typing in the text channels. Only memebrs with the designated role in the database can use this command');
   }
 
   async run(client, message, args) {
