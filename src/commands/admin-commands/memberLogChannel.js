@@ -3,7 +3,7 @@ const GuildConfig = require('../../database/schemas/guildconfig');
 
 module.exports = class MemberLogCommand extends BaseCommand {
   constructor() {
-    super('memberlog', 'admin', ['mc']);
+    super('memberlog', 'admin', ['ml']);
   }
   
   async run(client, message, args) {

@@ -2,7 +2,7 @@ const BaseCommand = require('../../utils/structures/BaseCommand');
 
 module.exports = class ServersCommand extends BaseCommand {
   constructor() {
-    super('servers', 'admin', ['server']);
+    super('server', 'admin', ['servers']);
   }
 
   async run(client, message, args) {
