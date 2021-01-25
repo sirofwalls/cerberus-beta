@@ -3,7 +3,7 @@ const GuildConfig = require('../../database/schemas/guildconfig');
 
 module.exports = class TextMuteCommand extends BaseCommand {
   constructor() {
-    super('mute', 'moderation', []);
+    super('mute', 'moderation', [], 'Text Mutes a user in the server so they can no logner type in any text channels. Only memebrs with the designated role in the database can use this command');
   }
 
   async run(client, message, args) {

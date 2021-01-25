@@ -2,7 +2,7 @@ const BaseCommand = require('../../utils/structures/BaseCommand');
 
 module.exports = class SetStatusCommand extends BaseCommand {
   constructor() {
-    super('setstatus', 'admin', ['ss']);
+    super('setstatus', 'owner', ['ss'], 'Sets the status of the bot. Only the Bot owner can use this command.');
   }
 
   async run(client, message, args) {

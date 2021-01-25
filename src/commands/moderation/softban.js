@@ -3,7 +3,7 @@ const GuildConfig = require('../../database/schemas/guildconfig');
 
 module.exports = class SoftBanCommand extends BaseCommand {
   constructor() {
-    super('softban', 'moderation', []);
+    super('softban', 'moderation', [], 'Bans a user from the server, and then unbans them. (To kick and remove mesage history) Only memebrs with the designated role in the database can use this command');
   }
 
   async run(client, message, args) {

@@ -3,7 +3,7 @@ const GuildConfig = require('../../database/schemas/guildconfig');
 
 module.exports = class ModRoleCommand extends BaseCommand {
   constructor() {
-    super('modrole', 'admin', ['mr']);
+    super('modrole', 'admin', ['mr'], 'Sets the moderator role in the database to control other commands that need it. ');
   }
   
   async run(client, message, args) {

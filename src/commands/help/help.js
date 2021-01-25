@@ -3,12 +3,10 @@ const Discord = require('discord.js');
 
 module.exports = class HelpCommand extends BaseCommand {
   constructor() {
-    super('help', 'help', []);
+    super('help', 'help', [], 'It is a help command... it shows the commands.');
   }
 
-  async run(client, message, args) {
-    if (!message.member.hasPermission('ADMINISTRATOR')) return;
-    
+  async run(client, message, args) {    
     const embed = new Discord.MessageEmbed()
       .setColor('GREEN')
       .setTitle('Commands List')
@@ -18,16 +16,16 @@ module.exports = class HelpCommand extends BaseCommand {
   
   const arrayCheck = [];
   commands.forEach(command => {
+      if(command.category === 'admin' || command.category === 'owner') return;
     if(arrayCheck.includes(command.name)) return;
     arrayCheck.push(command.name);
 
     embed.fields.push({
-        name: `${command.name}`,
-        value: `Aliases: ${command.aliases}\nCategory: ${command.category}\n`
+        name: `${command.name.toUpperCase()}`,
+        value: `**Aliases:** ${command.aliases}\n**Category:** ${command.category.toUpperCase()}\n**Description:** ${command.description}\n----------`
     });
   });
 
-  console.log(embed);
   message.channel.send(embed);
 
   }
