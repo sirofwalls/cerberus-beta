@@ -11,6 +11,8 @@ module.exports = class ClearChannelCommand extends BaseCommand {
               message.channel.bulkDelete(results, true);
               message.channel.send('I deleted all of the messages that I could. (I cannot delete messages over 14 days old)');
           })
+      } else {
+        message.channel.send('You are not allwoed to use this command.')
       }
   }
 }

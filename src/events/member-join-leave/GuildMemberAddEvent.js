@@ -17,7 +17,8 @@ module.exports = class GuildMemberAddEvent extends BaseEvent {
 
     if (memberLog) {
 
-      const embed = new Discord.MessageEmbed()
+      try {
+        const embed = new Discord.MessageEmbed()
         .setColor('GREEN')
         .setTitle(`Welcome ${member.user.username}#${member.user.discriminator}`)
         .setDescription(`${member.user.username} has joined the server! Let's join your robot overlord in saying HELLO!`)
@@ -25,7 +26,15 @@ module.exports = class GuildMemberAddEvent extends BaseEvent {
         .setTimestamp()
         .setFooter(`Brought to you by ${client.user.username}`, client.user.avatarURL())
 
-        welcomeChannel.send(embed);
+        await welcomeChannel.send(embed);
+      } catch (error) {
+        if (error.code === 50013) {
+          const serverOwner = member.guild.ownerID;
+          client.users.fetch(serverOwner).then((serverOwner) => {
+            serverOwner.send(`I tried to send a mesage in a channel to announce someone joining your server, but I do not have the correct permissions to send that message.`);
+          });
+        }
+      }
     }
   }
 }
