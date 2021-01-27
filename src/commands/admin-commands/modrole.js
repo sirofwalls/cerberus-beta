@@ -21,7 +21,6 @@ module.exports = class ModRoleCommand extends BaseCommand {
             message.delete({timeout: 200});
         } else (err) => {
             message.reply('There was an issue updating the Moderator Role');
-            console.log(err);
         }
     } else {
         message.reply('That role does not exist').then((replyMessage) => {

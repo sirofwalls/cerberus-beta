@@ -19,7 +19,6 @@ module.exports = class PrefixCommand extends BaseCommand {
             });
         } else (err) => {
             message.reply('There was an issue updating the prefix');
-            console.log(err);
         }
     } else {
         message.reply('The prefix needs to be 1-3 characters long').then((replyMessage) => {

@@ -19,7 +19,6 @@ module.exports = class MuteRoleCommand extends BaseCommand {
             message.delete({timeout: 200});
         } else (err) => {
             message.reply('There was an issue updating the Muted Role');
-            console.log(err);
         }
     } else {
         message.reply('That role does not exist')
