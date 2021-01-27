@@ -21,7 +21,6 @@ module.exports = class MemberLogCommand extends BaseCommand {
             message.delete({timeout: 200});
         } else (err) => {
             message.reply('There was an issue updating the Member Log Channel');
-            console.log(err);
         }
     } else {
         message.reply('The Member Log Channel ID needs to be 1-21 characters long').then((replyMessage) => {
