@@ -9,19 +9,22 @@ module.exports = class MuteRoleCommand extends BaseCommand {
   async run(client, message, args) {
     if (!message.member.hasPermission('ADMINISTRATOR')) return;
     const guildId = message.guild.id;
-    const parseArgs = args.slice(1).toLowerCase().trim().split('-');
-    const muteRole = parseArgs[0];
-    const mutedRole = message.guild.roles.cache.find(role => role.name.toLowerCase() === muteRole);
+    const mutedRole = message.mentions.roles.first();
     if (mutedRole) {
         const memberLogData = await GuildConfig.findOneAndUpdate({guildId}, {mutedRole: mutedRole.name}, {upsert: true});
         if (memberLogData) {
-            message.channel.send(`The new Muted Role is \`${mutedRole.name}\``);
-            message.delete({timeout: 200});
+            message.channel.send(`The new Muted Role is \`${mutedRole.name}\``).then((replyMessage) => {
+              replyMessage.delete({timeout: 2000});
+              message.delete({timeout: 200});
+            });
         } else (err) => {
             message.reply('There was an issue updating the Muted Role');
         }
     } else {
-        message.reply('That role does not exist')
+        message.reply('That role does not exist, or is not a valid role').then((replyMessage) => {
+          replyMessage.delete({timeout: 2000});
+          message.delete({timeout: 200});
+        });
     }
   }
 }

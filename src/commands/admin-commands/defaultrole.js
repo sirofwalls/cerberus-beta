@@ -9,19 +9,22 @@ module.exports = class DefaultRoleCommand extends BaseCommand {
   async run(client, message, args) {
     if (!message.member.hasPermission('ADMINISTRATOR')) return;
     const guildId = message.guild.id;
-    const parseArgs = args.slice(1).toLowerCase().trim().split('-');
-    const defaultRole = parseArgs[0];
-    const defactoRole = message.guild.roles.cache.find(role => role.name.toLowerCase() === defaultRole);
+    const defactoRole = message.mentions.roles.first();
     if (defactoRole) {
         const memberLogData = await GuildConfig.findOneAndUpdate({guildId}, {defaultRole: defactoRole.name}, {upsert: true});
         if (memberLogData) {
-            message.channel.send(`The new Deafult Role is \`${defactoRole.name}\``);
-            message.delete({timeout: 200});
+            message.channel.send(`The new Default Role is \`${defactoRole.name}\``).then((replyMessage) => {
+              replyMessage.delete({timeout: 2000});
+              message.delete({timeout: 200});
+            });
         } else (err) => {
             message.reply('There was an issue updating the Default Role');
         }
     } else {
-        message.reply('That role does not exist')
+        message.reply('That role does not exist, or is not a valid role').then((replyMessage) => {
+          replyMessage.delete({timeout: 2000});
+          message.delete({timeout: 200});
+        });
     }
   }
 }

@@ -9,22 +9,23 @@ module.exports = class MemberLogCommand extends BaseCommand {
   async run(client, message, args) {
     if (!message.member.hasPermission('ADMINISTRATOR')) return;
     const guildId = message.guild.id;
-    const parseArgs = args.slice(1).toLowerCase().trim().split('-');
-    const memberChannel = parseArgs[0];
-    if ((memberChannel.length <= 21) && (memberChannel.length > 0)) {
-        const memberLogData = await GuildConfig.findOneAndUpdate({guildId}, {memeberLogChannel: memberChannel}, {upsert: true});
-        const logChannel = client.channels.cache.get(memberChannel).name;
-        if (memberLogData) {
-            message.channel.send(`The new Member Log Channel is \`#${logChannel}\``).then((replyMessage) => {
-              replyMessage.delete({timeout: 2000})
-            });
+    const memberChannel = message.mentions.channels.first();
+    if (memberChannel) {
+      const memberLogChannel = memberChannel.id;
+      const memberLogData = await GuildConfig.findOneAndUpdate({guildId}, {memeberLogChannel: memberLogChannel}, {upsert: true});
+      const logChannel = client.channels.cache.get(memberLogChannel).name;
+      if (memberLogData) {
+          message.channel.send(`The new Member Log Channel is \`#${logChannel}\``).then((replyMessage) => {
+            replyMessage.delete({timeout: 2000});
             message.delete({timeout: 200});
-        } else (err) => {
-            message.reply('There was an issue updating the Member Log Channel');
-        }
+          });
+      } else (err) => {
+          message.reply('There was an issue updating the Member Log Channel');
+      }
     } else {
-        message.reply('The Member Log Channel ID needs to be 1-21 characters long').then((replyMessage) => {
-          replyMessage.delete({timeout: 2000})
+        message.reply('That channel does not exist, or it is not a valid channel.').then((replyMessage) => {
+          replyMessage.delete({timeout: 2000});
+          message.delete({timeout: 200});
         });
     }
   }
