@@ -9,5 +9,7 @@ module.exports = class TestCommand extends BaseCommand {
   async run(client, message, args) {
     if (!message.member.hasPermission('ADMINISTRATOR')) return;
     message.channel.send('Test command works, my master');
+
+    client.emit('guildMemberAdd', message.member);
   }
 }

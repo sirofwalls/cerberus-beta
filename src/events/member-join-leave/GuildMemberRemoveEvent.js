@@ -10,9 +10,8 @@ module.exports = class GuildMemberRemoveEvent extends BaseEvent {
   async run(client, member) {
     const memberLogFetch = await GuildConfig.findOne({guildId: member.guild.id});
     const memberLog = memberLogFetch.get('memeberLogChannel');
+    const defaultRole = memberLogFetch.get('defaultRole');
     const welcomeChannel = client.channels.cache.get(memberLog); 
-
-    if (!memberLog) return;
 
     if (memberLog) {
 
@@ -32,7 +31,7 @@ module.exports = class GuildMemberRemoveEvent extends BaseEvent {
           });
         }
       }
-    }
+    } 
     
   }
 }
