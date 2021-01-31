@@ -6,6 +6,7 @@ Bot Permissions needed on deploymeent:
 BAN_MEMBERS
 KICK_MEMBERS
 MANAGE_ROLES
+MANAGE_MESSAGES
 
 
 Privileged Gateway Intents needed for deployment:
