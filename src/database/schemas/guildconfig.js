@@ -35,6 +35,24 @@ const GuildConfigSchema = new mongoose.Schema({
         type: mongoose.SchemaTypes.String,
         required: false,
     },
+    reactionChannel: {
+        type: mongoose.SchemaTypes.String,
+        required: false,
+    },
+    reactionMessage: {
+        type: mongoose.SchemaTypes.String,
+        required: false,
+    },
+    reactionRoles: [{
+        emoji: {
+            type: mongoose.SchemaTypes.String,
+            required: false,
+        },
+        roles: {
+            type: mongoose.SchemaTypes.String,
+            required: false,
+        },
+    }]
 });
 
 module.exports = mongoose.model('GuildConfig', GuildConfigSchema);
