@@ -7,11 +7,21 @@ module.exports = class ReactMessageCommand extends BaseCommand {
   }
 
   async run(client, message, args) {
+    if (!message.member.hasPermission('ADMINISTRATOR')) return;
 
     const argument = args.slice().trim().split(/ +/);
     const {guild, mentions} = message;
     const {channels} = mentions;
     const targetChannel = channels.first() || message.channel;
+
+    if (!args) {
+        message.reply('You need to specify some text for the Role Reaction Menu')
+        .then((replyMessage) => {
+            message.delete();
+            replyMessage.delete({timeout: 1000 * 5});
+        });
+        return;
+    }
 
     if (!guild.me.hasPermission('MANGE_MESSAGES') || !guild.me.hasPermission('MANAGE_ROLES')) {
         message.reply('I do not have the needed roles to do that. Talk with the Server owner.')
