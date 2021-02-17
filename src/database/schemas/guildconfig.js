@@ -48,7 +48,7 @@ const GuildConfigSchema = new mongoose.Schema({
             type: mongoose.SchemaTypes.String,
             required: false,
         },
-        roles: {
+        roleId: {
             type: mongoose.SchemaTypes.String,
             required: false,
         },

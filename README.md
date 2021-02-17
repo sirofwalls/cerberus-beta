@@ -7,6 +7,8 @@ BAN_MEMBERS
 KICK_MEMBERS
 MANAGE_ROLES
 MANAGE_MESSAGES
+USE_EXTERNAL_EMOJIS
+MANAGE_EMOJIS
 
 
 Privileged Gateway Intents needed for deployment:
