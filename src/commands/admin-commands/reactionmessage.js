@@ -1,5 +1,6 @@
 const BaseCommand = require('../../utils/structures/BaseCommand');
 const GuildConfig = require('../../database/schemas/guildconfig');
+const {addToCache} = require('../../events/reactions/reactionCacheCheck');
 
 module.exports = class ReactMessageCommand extends BaseCommand {
   constructor() {
@@ -35,6 +36,8 @@ module.exports = class ReactMessageCommand extends BaseCommand {
     const text = argument.join(' ');
     const newMessage = await targetChannel.send('Setting up');
 
+    addToCache(guild.id, newMessage)
+
     const reactionData = await GuildConfig.updateMany({guildId:guild.id}, {reactionChannel: targetChannel.id, reactionMessage:newMessage.id})
     .catch((err) => {
         message.channel.send("There was an error saving this informaiton to the database. Please report this to the bot owner.").then((replyMessage) => {
@@ -46,7 +49,7 @@ module.exports = class ReactMessageCommand extends BaseCommand {
 
     if(reactionData) {
         message.delete();
-        newMessage.edit(text);
+        newMessage.edit(`**${text}**`);
     }
   }
 }
