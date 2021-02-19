@@ -17,6 +17,7 @@ const addToCache = async (guildId, reactionMessage, emoji, roleId) => {
 };
 
 const handleReaction = (reaction, user, adding) => {
+    if(user.bot) return;
     const {message} = reaction;
     const {guild} = message;
 
@@ -79,18 +80,23 @@ module.exports = async (client) => {
                 const fetchedMessage = await channel.messages.fetch(reactionMessage, cacheMessage, skipCache);
 
                 if (fetchedMessage) {
-                    const newRoles = {};
+                    const newRoles = {}
 
-                    for (const role of roles) {
-                        const {emoji, reactionRoles} = role;
-                        newRoles[emoji] = reactionRoles;
+                    for (const role of reactionRoles) {
+                        const { emoji, roleId } = role
+                        newRoles[emoji] = roleId
                     }
 
                     cache[guildId] = [fetchedMessage, newRoles]
                 }
             } catch (err) {
-                console.log(`The reaction message for ${guild.name} was not found. Deleting from the database.`);
-                await GuildConfig.updateMany({guildId},{$unset: {reactionChannel, reactionMessage, reactionRoles}});
+                if (err.code === 10008) {
+                    console.log(`An error happened. The reaction message for ${guild.name} was not found, and has been deleted from the DB`);
+                    await GuildConfig.updateMany({guildId},{$unset: {reactionChannel, reactionMessage, reactionRoles}});
+                } else {
+                    console.log(`The reaction message for ${guild.name} was not found. Deleting from the database.`);
+                    await GuildConfig.updateMany({guildId},{$unset: {reactionChannel, reactionMessage, reactionRoles}});
+                }
             }
         }
         

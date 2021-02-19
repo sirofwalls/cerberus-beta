@@ -26,12 +26,14 @@ module.exports = class RoleReactionCommand extends BaseCommand {
     
     const newRole = guild.roles.cache.find(r => {
         return r.id === role.id
-    }) ||  null
+    }) || null
 
     if (!newRole) {
         message.reply(`That role does not appear to exist on this server.`)
         return;
     }
+
+    role = newRole;
 
     if (emoji.includes(':')) {
         const emojiName = emoji.split(":")[1];
@@ -42,7 +44,7 @@ module.exports = class RoleReactionCommand extends BaseCommand {
 
     const [fetchedMessage] = fetchCache(guild.id);
     if (!fetchedMessage) {
-        message.reply('There was an error. Please try again');
+        message.reply('There was an error with the reaction message. Please try again, or contact the bot owner.');
         return;
     }
     
@@ -81,7 +83,7 @@ module.exports = class RoleReactionCommand extends BaseCommand {
         }
     }, {upsert:true});
 
-    addToCache(guild.id, fetchedMessage, emoji, role.id)
+    addToCache(guild.id, fetchedMessage, emoji.id, role.id)
 
     message.delete();
   }
