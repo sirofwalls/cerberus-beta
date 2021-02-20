@@ -64,7 +64,12 @@ module.exports = class RoleReactionCommand extends BaseCommand {
         content = split.join('\n');
     } else {
         content += `\n\n${newLine}\n\n`;
-        fetchedMessage.react(emoji);
+        if (emoji) {
+            fetchedMessage.react(emoji);
+        } else {
+            message.channel.send('I cannot use that emoji. Please use an emoji from this server.')
+            return;
+        }
     }
 
     fetchedMessage.edit(content);
@@ -84,7 +89,11 @@ module.exports = class RoleReactionCommand extends BaseCommand {
         }
     }, {upsert:true});
 
-    addToCache(guild.id, fetchedMessage, emoji.id, role.id)
+    if (emoji) {
+        addToCache(guild.id, fetchedMessage, emoji.id, role.id)
+    } else {
+        message.channel.send('I cannot use that emoji')
+    }
 
     message.delete();
   }
