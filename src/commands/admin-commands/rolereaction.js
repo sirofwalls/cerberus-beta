@@ -43,7 +43,8 @@ module.exports = class RoleReactionCommand extends BaseCommand {
     }
 
     const [fetchedMessage] = fetchCache(guild.id);
-    if (!fetchedMessage) {
+    const dbCheck = GuildConfig.findOne(guild.id, {reactionChannel: fetchedMessage.channel.id})
+    if (!fetchedMessage || dbCheck) {
         message.reply('There was an error with the reaction message. Please try again, or contact the bot owner.');
         return;
     }
