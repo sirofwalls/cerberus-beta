@@ -15,14 +15,14 @@ module.exports = class ReactMessageCommand extends BaseCommand {
     const {channels} = mentions;
     const targetChannel = channels.first() || message.channel;
 
-    if (!args) {
-        message.reply('You need to specify some text for the Role Reaction Menu')
-        .then((replyMessage) => {
-            message.delete();
-            replyMessage.delete({timeout: 1000 * 5});
-        });
-        return;
-    }
+    // if (!args) {
+    //     message.reply('You need to specify some text for the Role Reaction Menu')
+    //     .then((replyMessage) => {
+    //         message.delete();
+    //         replyMessage.delete({timeout: 1000 * 5});
+    //     });
+    //     return;
+    // }
 
     if (!guild.me.hasPermission('MANGE_MESSAGES') || !guild.me.hasPermission('MANAGE_ROLES')) {
         message.reply('I do not have the needed roles to do that. Talk with the Server owner.')
@@ -33,7 +33,7 @@ module.exports = class ReactMessageCommand extends BaseCommand {
         argument.shift()
     }
 
-    const text = argument.join(' ');
+    const text = argument.join(' ') || 'React to give yourself a role';
     const newMessage = await targetChannel.send('Setting up');
 
     addToCache(guild.id, newMessage)
