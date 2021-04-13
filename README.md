@@ -16,4 +16,4 @@ PRESENCE INTENT
 SERVER MEMBERS INTENT
 
 Current Invite URL:
-https://discord.com/api/oauth2/authorize?client_id=<CLIENT ID HERE>&permissions=268443654&scope=bot
+https://discord.com/api/oauth2/authorize?client_id=<CLIENT ID HERE>&permissions=1342447622&scope=bot
