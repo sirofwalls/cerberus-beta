@@ -1,6 +1,7 @@
 Cerberus-beta
 
 woot woot
+Creating new line for signed commit verification
 
 Bot Permissions needed on deploymeent:
 BAN_MEMBERS
