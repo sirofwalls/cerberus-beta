@@ -90,3 +90,9 @@ In the channel you want the Role Reaction message to be in use the "rrmsg" comma
 To add a reaction to the message use the command "rr" folowed by the emoji or reaction you want to use, then the mentioned role *(@example_role)*, followed by the description text you want to appear next to it. It will then add the reaction and anytime someone reacts to it, they will be added, or removed from that role if they remove their reaction to it. 
 
 *(The roles must be lower than the bot role in the admin panel of your server/guild or the bot will throw an error)*
+
+---
+
+## Special Notes
+
+- If you are developing on a M1 Mac (like I currently am) and you want to build this into a Docker container, you will need to run the build command with the flag:<pre>--platform=linux/amd64</pre>
