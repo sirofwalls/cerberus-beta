@@ -14,7 +14,7 @@ module.exports = class RoleReactionCommand extends BaseCommand {
     const argument = args.slice().trim().split(/ +/);
     const {guild} = message;
 
-    if (!guild.me.hasPermission('MANGE_MESSAGES') || !guild.me.hasPermission('MANAGE_ROLES')) {
+    if (!guild.me.hasPermission('MANAGE_MESSAGES') || !guild.me.hasPermission('MANAGE_ROLES')) {
         message.reply('I do not have the needed roles to do that. Talk with the Server owner.')
         return;
     }

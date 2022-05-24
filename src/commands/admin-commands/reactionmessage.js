@@ -4,7 +4,7 @@ const {addToCache} = require('../../events/reactions/reactionCacheCheck');
 
 module.exports = class ReactMessageCommand extends BaseCommand {
   constructor() {
-    super('reactmessage', 'admin', ['rrmsg'], 'Creates a message to add reactions and get roles.');
+    super('reactmessage', 'admin', ['rrmsg'], 'Creates a message to add reactions and get roles. Usage: <command> <optional channel> <optional message>');
   }
 
   async run(client, message, args) {
@@ -24,7 +24,7 @@ module.exports = class ReactMessageCommand extends BaseCommand {
     //     return;
     // }
 
-    if (!guild.me.hasPermission('MANGE_MESSAGES') || !guild.me.hasPermission('MANAGE_ROLES')) {
+    if (!guild.me.hasPermission('MANAGE_MESSAGES') || !guild.me.hasPermission('MANAGE_ROLES')) {
         message.reply('I do not have the needed roles to do that. Talk with the Server owner.')
         return;
     }
