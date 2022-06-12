@@ -75,7 +75,7 @@ Once the bot is up and running and invited to your server *(must be running befo
 
 Then run the appropriate commands to set the roles with the bot *(See above)*
 
-You can then use the "Memberlogchannel" command to set a channel that the bot will be able to announce users joining or leaving the server in *(make sure the bot can talk in that channel)*
+You can then use the "memberlog" command to set a channel that the bot will be able to announce users joining or leaving the server in *(make sure the bot can talk in that channel)*
 
 If you want to set the prefix for the commands for your server you can use the "Prefix" command, followed by the new prefix you want *(!, !!, or ? as examples. (!!ping))*
 
